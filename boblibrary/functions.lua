@@ -62,23 +62,9 @@ function bobmods.lib.icons_from_item(item)
   if item and type(item) == "table" then
     local icons = {}
     if item.icons then
-      -- Deep copy the icons table to avoid modifying the original
-      icons = util.table.deepcopy(item.icons)
-      -- Ensure each icon has a proper icon_size
-      for _, icon_data in pairs(icons) do
-        if not icon_data.icon_size then
-          icon_data.icon_size = item.icon_size or 256 -- Default to 256 for Factorio 2.0
-        end
-      end
+      icons = item.icons
     elseif item.icon then
-      icons = {
-        {
-          icon = item.icon,
-          icon_size = item.icon_size or 256, -- Default to 256 for Factorio 2.0
-          icon_mipmaps = item.icon_mipmaps,
-          tint = item.tint
-        }
-      }
+      icons = { { icon = item.icon, icon_size = item.icon_size or 64 } }
     else
       icons = nil
       log(debug.traceback())

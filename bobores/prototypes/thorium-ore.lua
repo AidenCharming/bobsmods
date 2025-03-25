@@ -1,108 +1,50 @@
-local ore_icons = require("prototypes.ore-icons")
-
 bobmods.ores.thorium = {
-  name = "thorium-ore",
-  tint = { r = 0.4, g = 1.0, b = 0.4 },
-  map_color = { r = 0.4, g = 1.0, b = 0.4 },
-  mining_time = 2,
-  enabled = false,
-  icons = ore_icons.create_ore_icons("thorium-ore"),
-  stage_mult = 100,
+  name = "bob-thorium-ore",
+  tint = { r = 1, g = 1, b = 0.25 },
+  map_color = { r = 0.75, g = 1, b = 0.25 },
+  mining_time = 2.5,
+  enabled = false, --because It is controlled by a settings.lua option
+  -- notice the icon line is missing! Icon will now be generated!
+  stage_mult = 50,
+  required_fluid = "sulfuric-acid",
+  fluid_amount = 10,
   item = {
     create = true,
     create_variations = true,
     subgroup = "bob-ores",
   },
   sprite = {
-    sheet = 1,
+    sheet = 6, --sheet 6 is a tintable uranium clone
+  },
+  effect = {
+    -- the new effects section works like the sprite section. You can specify a sheet to generate from a pre-defined seet with a tint
+    -- or specify options to use your own sheet, like in the gem-ore file.
+    sheet = 6, --only sheet 6 exists right now
+
+    -- the following lines of the effect table are not needed, but are here for the example
+    animation_period = 5,
+    animation_period_deviation = 1,
+    darkness_multiplier = 3.6,
+    min_alpha = 0.2,
+    max_alpha = 0.3,
   },
   autoplace = "control-only",
+  drop_sound = { filename = "__base__/sound/item/nuclear-inventory-move.ogg", volume = 0.6 },
+  inventory_move_sound = { filename = "__base__/sound/item/nuclear-inventory-move.ogg", volume = 0.6 },
+  pick_sound = { filename = "__base__/sound/item/nuclear-inventory-pickup.ogg", volume = 0.6 },
   planets = { "nauvis" },
-  minimum_resource_amount = 30
 }
 
 function bobmods.ores.thorium.create_autoplace()
-  data.raw.resource["thorium-ore"].autoplace = bobmods.lib.resource_autoplace.resource_autoplace_settings({
-    name = "thorium-ore",
+  data.raw.resource["bob-thorium-ore"].autoplace = bobmods.lib.resource_autoplace.resource_autoplace_settings({
+    name = "bob-thorium-ore",
     order = "c",
-    base_density = 3,
+    base_density = 0.9,
+    base_spots_per_km2 = 1.25,
     has_starting_area_placement = false,
-    regular_rq_factor_multiplier = 0.7,
-    starting_rq_factor_multiplier = 1.0,
-    patch_set_name = "thorium",
-    base_spots_per_km2 = 0.8,
-    random_spot_size_minimum = 0.5,
-    random_spot_size_maximum = 2.0
+    random_spot_size_minimum = 2,
+    random_spot_size_maximum = 4,
+    regular_rq_factor_multiplier = 1,
   })
   bobmods.ores.thorium.enabled = true
 end
-
-data:extend({
-  {
-    type = "item",
-    name = "thorium-ore",
-    icons = {
-      {
-        icon = "__base__/graphics/icons/stone.png",
-        icon_size = 64,
-        icon_mipmaps = 4,
-        tint = {r = 0.4, g = 1.0, b = 0.4}
-      }
-    },
-    subgroup = "bob-ores",
-    order = "b-thorium",
-    stack_size = 200,
-    pictures = {
-      {
-        filename = "__base__/graphics/icons/stone.png",
-        size = 64,
-        scale = 0.5,
-        mipmap_count = 4,
-        tint = {r = 0.4, g = 1.0, b = 0.4}
-      }
-    }
-  },
-  {
-    type = "resource",
-    name = "thorium-ore",
-    icons = ore_icons.create_ore_icons("thorium-ore"),
-    flags = {"placeable-neutral"},
-    order = "b-thorium",
-    map_color = {r=0.4, g=1.0, b=0.4},
-    mining_time = 2,
-    mining_visualisation_tint = {r = 0.4, g = 1.0, b = 0.4},
-    resource_patch_search_radius = 1.5,
-    minimum_resource_amount = 30,
-    minable =
-    {
-      mining_particle = "stone-particle",
-      mining_time = 2,
-      results = {{type = "item", name = "thorium-ore", amount_min = 1, amount_max = 1}},
-    },
-    collision_box = {{ -0.1, -0.1}, {0.1, 0.1}},
-    selection_box = {{ -0.5, -0.5}, {0.5, 0.5}},
-    autoplace = bobmods.lib.resource_autoplace.resource_autoplace_settings({
-      name = "thorium-ore",
-      order = "c",
-      base_density = 3,
-      has_starting_area_placement = false,
-      regular_rq_factor_multiplier = 0.7,
-      starting_rq_factor_multiplier = 1.0,
-      patch_set_name = "thorium",
-      base_spots_per_km2 = 0.8,
-      random_spot_size_minimum = 0.5,
-      random_spot_size_maximum = 2.0
-    }),
-    stage_counts = {2000},
-    stages = {
-      sheet = {
-        filename = "__bobores__/graphics/entity/thorium-ore/thorium-ore.png",
-        priority = "extra-high",
-        width = 32,
-        height = 32,
-        frame_count = 1,
-        variation_count = 1
-      }
-    }
-  }
-})

@@ -1,10 +1,7 @@
-local ore_icons = require("prototypes.ore-icons")
-
 bobmods.ores.water = {
   name = "bob-ground-water",
   icon = "__base__/graphics/icons/fluid/water.png",
   icon_size = 64,
-  icon_mipmaps = 4,
   subgroup = "fluid",
   category = "water",
   infinite = true,
@@ -15,9 +12,7 @@ bobmods.ores.water = {
   mining_time = 1,
   tint = { r = 0.2, g = 0.8, b = 1 },
   map_color = { r = 0.2, g = 0.8, b = 1 },
-  mining_visualisation_tint = { r = 0.2, g = 0.8, b = 1 },
   collision_box = { { -1.4, -1.4 }, { 1.4, 1.4 } },
-  selection_box = { { -1.4, -1.4 }, { 1.4, 1.4 } },
   particle = nil,
   items = {
     {
@@ -37,7 +32,6 @@ bobmods.ores.water = {
   enabled = false,
   autoplace = "control-only",
   planets = { "nauvis" },
-  minimum_resource_amount = 400000
 }
 
 function bobmods.ores.water.create_autoplace()
@@ -50,12 +44,11 @@ function bobmods.ores.water.create_autoplace()
       base_spots_per_km2 = 1.8,
       random_probability = 1 / 48,
       random_spot_size_minimum = 1,
-      random_spot_size_maximum = 2,
+      random_spot_size_maximum = 1,
       additional_richness = 1000000,
       has_starting_area_placement = true,
       regular_rq_factor_multiplier = 1,
       starting_rq_factor_multiplier = 2,
-      patch_set_name = "ground-water"
     }
   else
     ground_water_parameters = {
@@ -65,11 +58,10 @@ function bobmods.ores.water.create_autoplace()
       base_spots_per_km2 = 1.8,
       random_probability = 1 / 48,
       random_spot_size_minimum = 1,
-      random_spot_size_maximum = 2,
+      random_spot_size_maximum = 1,
       additional_richness = 1000000,
       has_starting_area_placement = false,
       regular_rq_factor_multiplier = 1,
-      patch_set_name = "ground-water"
     }
   end
   data.raw.resource["bob-ground-water"].autoplace =
@@ -80,7 +72,6 @@ end
 bobmods.ores.lithia_water = {
   name = "bob-lithia-water",
   icon = "__bobores__/graphics/icons/lithia-water.png",
-  icon_size = 32,
   subgroup = "fluid",
   category = "water",
   infinite = true,
@@ -91,9 +82,7 @@ bobmods.ores.lithia_water = {
   mining_time = 1,
   tint = { r = 0.5, g = 0.7, b = 0.8 },
   map_color = { r = 0.5, g = 1, b = 0.8 },
-  mining_visualisation_tint = { r = 0.5, g = 0.7, b = 0.8 },
   collision_box = { { -1.4, -1.4 }, { 1.4, 1.4 } },
-  selection_box = { { -1.4, -1.4 }, { 1.4, 1.4 } },
   particle = nil,
   items = {
     {
@@ -113,7 +102,6 @@ bobmods.ores.lithia_water = {
   enabled = false,
   autoplace = "control-only",
   planets = { "nauvis" },
-  minimum_resource_amount = 2000000
 }
 
 function bobmods.ores.lithia_water.create_autoplace()
@@ -125,11 +113,10 @@ function bobmods.ores.lithia_water.create_autoplace()
     base_spots_per_km2 = 0.6,
     random_probability = 1 / 48,
     random_spot_size_minimum = 1,
-    random_spot_size_maximum = 2,
+    random_spot_size_maximum = 1,
     additional_richness = 1000000,
     has_starting_area_placement = false,
     regular_rq_factor_multiplier = 1,
-    patch_set_name = "lithia-water"
   })
   bobmods.ores.lithia_water.enabled = true
 end

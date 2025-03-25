@@ -41,8 +41,3 @@ luac.out
 
 # Working Files
 *.vscode
-
-/*
-!.gitignore
-!boblibrary/
-!bobores/

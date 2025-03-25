@@ -1,0 +1,46 @@
+{
+  "technology": [
+    ["automation-2", "automation-2"],
+    ["automation-3", "automation-3"],
+    ["logistics-2", "logistics-2"],
+    ["logistics-3", "logistics-3"],
+    ["steel-processing", "steel-processing"],
+    ["oil-processing", "oil-processing"],
+    ["plastics", "plastics"],
+    ["advanced-electronics", "advanced-electronics"],
+    ["advanced-electronics-2", "advanced-electronics-2"],
+    ["battery", "battery"],
+    ["engine", "engine"],
+    ["electric-engine", "electric-engine"],
+    ["flying", "flying"],
+    ["robotics", "robotics"],
+    ["rocket-silo", "rocket-silo"],
+    ["space-science-pack", "space-science-pack"],
+    ["military", "military"],
+    ["military-2", "military-2"],
+    ["military-3", "military-3"],
+    ["military-4", "military-4"]
+  ],
+  "recipe-category": [
+    ["crafting", "crafting"],
+    ["advanced-crafting", "advanced-crafting"],
+    ["smelting", "smelting"],
+    ["chemistry", "chemistry"],
+    ["oil-processing", "oil-processing"],
+    ["energy", "energy"],
+    ["advanced-energy", "advanced-energy"],
+    ["rocket-building", "rocket-building"]
+  ],
+  "item-group": [
+    ["intermediate-products", "intermediate-products"],
+    ["production", "production"],
+    ["logistics", "logistics"],
+    ["combat", "military"]
+  ],
+  "item-subgroup": [
+    ["intermediate-product", "intermediate-product"],
+    ["raw-material", "raw-material"],
+    ["raw-resource", "raw-resource"],
+    ["terrain", "terrain"]
+  ]
+} 

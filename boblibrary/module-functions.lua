@@ -1,70 +1,34 @@
-if not bobmods.lib.module then
-  bobmods.lib.module = {}
-  bobmods.lib.module.excluded_prod_modules = {}
-end
+if not bobmods then bobmods = {} end
+if not bobmods.lib then bobmods.lib = {} end
+if not bobmods.lib.recipe then bobmods.lib.recipe = {} end
 
-function bobmods.lib.module.exclude_productivity_module(module_name)
-  if type(module_name) == "string" then
-    if data.raw.module[module_name] then
-      bobmods.lib.module.excluded_prod_modules[module_name] = true
+-- New productivity module functions for Factorio 2.0
+function bobmods.lib.recipe.allow_productivity(recipe_name)
+  if data.raw.recipe[recipe_name] then
+    if not data.raw.recipe[recipe_name].allow_productivity then
+      data.raw.recipe[recipe_name].allow_productivity = true
     end
   else
-    log(debug.traceback())
+    log("Warning: Recipe " .. recipe_name .. " does not exist when trying to allow productivity.")
   end
 end
 
-function bobmods.lib.module.add_productivity_limitation(recipe)
-  if type(recipe) == "string" and data.raw.recipe[recipe] then
-    for i, module in pairs(data.raw.module) do
-      if
-        not bobmods.lib.module.excluded_prod_modules[module.name]
-        and module.limitation
-        and module.effect.productivity
-      then
-        table.insert(module.limitation, recipe)
-      end
+function bobmods.lib.recipe.disallow_productivity(recipe_name)
+  if data.raw.recipe[recipe_name] then
+    if data.raw.recipe[recipe_name].allow_productivity then
+      data.raw.recipe[recipe_name].allow_productivity = false
     end
   else
-    log(debug.traceback())
-    bobmods.lib.error.recipe(recipe)
+    log("Warning: Recipe " .. recipe_name .. " does not exist when trying to disallow productivity.")
   end
 end
 
-function bobmods.lib.module.add_productivity_limitations(recipes)
-  if type(recipes) == "table" then
-    for j, recipe in pairs(recipes) do
-      bobmods.lib.module.add_productivity_limitation(recipe)
-    end
-  else
-    log(debug.traceback())
-    log("Expected table.")
+-- Helper function to check if a recipe allows productivity modules
+function bobmods.lib.recipe.check_productivity(recipe_name)
+  if data.raw.recipe[recipe_name] then
+    return data.raw.recipe[recipe_name].allow_productivity or false
   end
+  return false
 end
 
-function bobmods.lib.module.remove_productivity_limitation(recipe)
-  if type(recipe) == "string" and data.raw.recipe[recipe] then
-    for i, module in pairs(data.raw.module) do
-      if module.limitation and module.effect.productivity then
-        for limitationIndex, limitationRecipeName in pairs(module.limitation) do
-          if recipe == limitationRecipeName then
-            table.remove(module.limitation, limitationIndex)
-          end
-        end
-      end
-    end
-  else
-    log(debug.traceback())
-    bobmods.lib.error.recipe(recipe)
-  end
-end
-
-function bobmods.lib.module.remove_productivity_limitations(recipes)
-  if type(recipes) == "table" then
-    for j, recipe in pairs(recipes) do
-      bobmods.lib.module.remove_productivity_limitation(recipe)
-    end
-  else
-    log(debug.traceback())
-    log("Expected table.")
-  end
-end
+return bobmods.lib.recipe
